@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加员工</title>
+    <script src="/layui.js"></script>
+    <link rel="stylesheet" href="/css/layui.css">
+</head>
+
+<body>
+<div class="layui-fluid">
+    <div class="layui-col-md12">
+        <!--        表单-->
+        <form class="layui-form" action="/addStaff" method="post">
+            <label class="layui-form-label">工号</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffNumber" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffName" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffSex" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">出生日期</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffBirthday" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffAge" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">工种</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffKind" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffTel" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffUsername" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffPassword" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">入职时间</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffEntryTime" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffAdress" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffState" required lay-verify="required" placeholder="请输入" autocomplete="off"
+                       class="layui-input">
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo" type="submit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<!--<script>-->
+<!--    //Demo-->
+<!--    layui.use('form', function () {-->
+<!--        var form = layui.form;-->
+
+<!--        //监听提交-->
+<!--        form.on('submit(formDemo)', function (data) {-->
+<!--            layer.msg(JSON.stringify(data.field));-->
+<!--            return false;-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+
+</html>

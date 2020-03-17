@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加订单</title>
+    <script src="/layui.js"></script>
+    <link rel="stylesheet" href="/css/layui.css">
+</head>
+<body>
+<div class="layui-fluid">
+<!--    提交表单-->
+    <div class="layui-col-md12">
+        <fieldset class="layui-elem-field">
+            <legend>订单信息填写表</legend>
+            <div class="layui-field-box">
+                <form class="layui-form" action="/addOrder" method="post">
+                    <br/><br/>
+                    <input type="hidden" id="age" name="title" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span style="color: red;">*</span>
+                            <i class="iconfont icon-biaoti"></i>
+                            标题</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderTitle" name="orderTitle" required lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">
+                            <i class="iconfont icon-shijian"></i>
+                            截至日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderDeadTime" name="orderDeadTime" autocomplete="off"
+                                   class="layui-input"></div>
+                        <label class="layui-form-label">
+                            <i class="iconfont icon-shuliangtongji"></i>
+                            数量</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderQuantity" name="orderQuantity" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
+                                   autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <i class="iconfont icon-neirong"></i>
+                            订单内容</label>
+                        <div>
+                        <textarea class="layui-textarea" id="orderContent" style="width: 40.6%;"
+                                  name="orderContent"></textarea></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <i class="iconfont icon-icon-"></i>
+                            预付款</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderPreMoney" name="orderPreMoney" autocomplete="off"
+                                   class="layui-input"></div>
+                        <label class="layui-form-label">
+                            <i class="iconfont icon-icon-"></i>
+                            保证金</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderGreMoney" name="orderGreMoney" autocomplete="off"
+                                   class="layui-input"></div>
+                        <label class="layui-form-label">
+                            <i class="iconfont icon-icon-"></i>
+                            尾款</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderLastMoney" name="orderLastMoney" autocomplete="off"
+                                   class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <i class="iconfont icon-xingming"></i>
+                            发送方</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderInitiator" name="orderInitiator" autocomplete="off" class="layui-input"></div>
+                        <label class="layui-form-label">
+                            <i class="iconfont icon-weibiaoti-_huabanfuben"></i>
+                            规格要求</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderSpecification" name="orderSpecification" autocomplete="off" class="layui-input"></div>
+                        <label class="layui-form-label">
+                            <i class="iconfont icon-liuyanbeizhu"></i>
+                            备注</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderNotes" name="orderNotes" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item" style="margin-top: 30px;">
+                        <div class="layui-input-block">
+                            <button id="submitData" class="layui-btn">确定</button>
+                            <button id="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+    </div>
+</div>
+</body>
+</html>

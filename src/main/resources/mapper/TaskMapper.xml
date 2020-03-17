@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.factorydemo.mapper.TaskMapper">
+    <!--    1.插入一条订单信息-->
+    <insert id="addTask" parameterType="Task">
+        insert into task (taskTitle, taskContent,taskSpecification, taskQuantity, taskNotes,taskState, taskCreateTime, taskDeadTime,taskFatherId, taskWorkerId,taskWorkerName)
+        values (#{taskTitle},#{taskContent},#{taskSpecification},#{taskQuantity},#{taskNotes},#{taskState},#{taskCreateTime},#{taskDeadTime},#{taskFatherId},#{taskWorkerId},#{taskWorkerName});
+    </insert>
+<!--    2.根据父订单id查询子任务-->
+    <select id="queryTaskByFatherId" resultType="Task">
+        select * from task where taskFatherId=#{taskFatherId};
+    </select>
+<!--    3.根据id删除任务-->
+    <delete id="delTaskById" parameterType="int">
+        delete from enterpriseinfo.task where taskId=#{taskId};
+    </delete>
+<!--    4.选择员工后更新员工任务-->
+    <update id="updateTaskInfoAfterChoice" parameterType="map">
+        update task set taskWorkerId=#{taskWorkerId},taskWorkerName=#{taskWorkerName},taskState=1 where taskId=#{taskId} ;
+    </update>
+<!--    5.查询所有任务-->
+    <select id="queryAllTask" resultType="Task">
+        select * from task order by taskState;
+    </select>
+</mapper>

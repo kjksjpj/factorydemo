@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单列表</title>
+    <script src="/layui.js"></script>
+    <link rel="stylesheet" href="/css/layui.css">
+
+
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-col-md12">
+        <table id="demo" lay-filter="test"></table>
+    </div>
+</div>
+</body>
+
+<!--toolbar-->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<!--toolbar监听时间-->
+<script>
+    //监听事件
+    layui.use(['table', 'layer'], function () {
+        var table = layui.table;
+        var layer = layui.layer;
+
+        table.on('tool(test)', function (obj) {
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+            switch (layEvent) {
+                case 'edit':
+                    window.location.href = "http://localhost:8080/toUpdateOrder/"+data.orderId;
+                    break;
+                case 'del':
+                    window.location.href = "http://localhost:8080/delOrder/"+data.orderId;
+                    break;
+            }
+
+        });
+    })
+</script>
+
+<!--表格数据-->
+<script th:inline="javascript">
+    //获取表格数据
+    layui.use(['table'], function () {
+        var orders = [[${orderList}]]
+        var table = layui.table;
+        table.render({
+            elem: '#demo',
+            page: true,
+            cols: [
+                [
+                {field: "orderId", title: '编号', align: 'center'}
+                , {field: "orderTitle", title: '订单标题', align: 'center'}
+                , {field: "orderInitiator", title: '发送方', align: 'center'}
+                , {field: "orderPreMoney", title: '预付款', align: 'center'}
+                , {field: "orderGreMoney", title: '保证金', align: 'center'}
+                , {field: "orderLastMoney", title: '尾款', align: 'center'}
+                , {field: 'orderCreateTime', title: '创建时间', align: 'center'}
+                , {field: 'orderDeadTime', title: '截止时间', align: 'center'}
+                , {field: 'orderState', title: '状态', align: 'center'}
+                , {title: '操作', toolbar: '#barDemo', align: 'center'}
+                ]
+            ],
+            data: orders,
+            text: {
+                none: '没有未审核订单' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
+            }
+        });
+    });
+</script>
+</html>

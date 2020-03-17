@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>员工列表</title>
+    <script src="/layui.js"></script>
+    <link rel="stylesheet" href="/css/layui.css">
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-col-md12">
+        <table id="demo" lay-filter="test"></table>
+    </div>
+</div>
+</body>
+
+<!--toolbar-->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<!--toolbar监听时间-->
+<script>
+    //监听事件
+    layui.use(['table', 'layer'], function () {
+        var table = layui.table;
+        var layer = layui.layer;
+
+        table.on('tool(test)', function (obj) {
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+            switch (layEvent) {
+                case 'edit':
+                    window.location.href = "http://localhost:8080/updateStaffInfo/"+data.staffId;
+                    break;
+                case 'del':
+                    window.location.href = "http://localhost:8080/delStaffById/"+data.staffId;
+                    break;
+            }
+
+        });
+    })
+</script>
+
+<!--表格-->
+<script th:inline="javascript">
+    //获取表格数据
+    layui.use(['table', 'laytpl'], function () {
+        var staffs = [[${staffList}]]
+        var table = layui.table;
+        table.render({
+            elem: '#demo',
+            page: true,
+            cols: [
+                [
+                    {type: "numbers", title: '编号', align: 'center'}
+                    , {field: "staffNumber", title: '工号', align: 'center'}
+                    , {field: "staffName", title: '姓名', align: 'center'}
+                    , {field: "staffSex", title: '性别', align: 'center'}
+                    , {field: "staffAge", title: '年龄', align: 'center'}
+                    , {field: "staffKind", title: '工种', align: 'center'}
+                    , {field: "staffState", title: '工作状态', align: 'center', templet: '#titleTpl'}
+                    , {field: 'staffTaskTitle', title: '当前任务', align: 'center'}
+                    , {field: 'staffAddress', title: '地址', align: 'center'}
+                    , {field: 'staffTel', title: '联系方式', align: 'center'}
+                    , {field: 'staffEntryTime', title: '入住时间', align: 'center'}
+                    , {toolbar: '#barDemo', title: '操作', align: 'center', fixed: 'right'}
+                ]
+            ],
+            data: staffs,
+            text: {
+                none: '没有未审核订单' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
+            }
+        });
+    });
+</script>
+
+<!--状态字段的模板-->
+<script type="text/html" id="titleTpl">
+    {{#switch (d.staffState) {
+    case 0:}}
+    {{'在勤'}}
+    {{#break;
+    case 1:}}
+    {{'事假'}}
+    {{#break;
+    case 2:}}
+    {{'任务中'}}
+    {{#break;
+    default:}}
+    {{'暂无任务'}}
+    {{#}}}
+</script>
+
+</html>

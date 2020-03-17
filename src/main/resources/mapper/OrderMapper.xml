@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.factorydemo.mapper.OrderMapper">
+<!--    1.插入一条订单信息-->
+    <insert id="addOrder" parameterType="Order">
+        insert into enterpriseinfo.order (orderTitle, orderContent, orderSpecification,
+        orderQuantity, orderInitiator, orderRecipient, orderPreMoney,
+        orderGreMoney, orderLastMoney, orderNotes,
+        orderCreateTime, orderDeadTime,orderState)
+        values (#{orderTitle},#{orderContent},#{orderSpecification},
+        #{orderQuantity},#{orderInitiator},#{orderRecipient},#{orderPreMoney},
+        #{orderGreMoney},#{orderLastMoney},#{orderNotes},#{orderCreateTime},#{orderDeadTime},#{orderState});
+    </insert>
+<!--    2.查询所有订单信息-->
+    <select id="queryAllOrder" resultType="Order">
+        select * from enterpriseinfo.order;
+    </select>
+<!--    3.根据id查询订单信息-->
+    <select id="queryOrderById" resultType="Order">
+        select * from enterpriseinfo.order where orderId=#{orderId};
+    </select>
+
+<!--    更新order-->
+<update id="updateOrder" parameterType="Order">
+            update enterpriseinfo.order
+        set orderTitle=#{orderTitle},orderDeadTime=#{orderDeadTime},
+        orderQuantity=#{orderQuantity},orderContent=#{orderContent},orderPreMoney=#{orderPreMoney},
+        orderGreMoney=#{orderGreMoney},orderLastMoney=#{orderLastMoney},orderInitiator=#{orderInitiator},
+        orderSpecification=#{orderSpecification},orderNotes=#{orderNotes} where orderId=#{orderId} ;
+</update>
+
+<!--    删除订单-->
+    <delete id="deleteOrderByOrderId">
+            delete from enterpriseinfo.order where orderId=#{orderId};
+    </delete>
+
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.factorydemo.mapper.StaffMapper">
+<!--    1.查询全部员工信息-->
+    <select id="queryAllStaff" resultType="Staff">
+        select * from enterpriseinfo.staff;
+    </select>
+<!--    2.插入一条员工信息-->
+    <insert id="addStaff" parameterType="Staff">
+        insert into staff (staffUsername,staffPassword,staffNumber,
+        staffName,staffSex,staffBrithday,staffAge,staffKind,staffTel,
+        staffEntryTime,staffAddress,staffState)
+        values (#{staffUsername},#{staffPassword},#{staffNumber},
+        #{staffName},#{staffSex},#{staffBrithday},#{staffAge},#{staffKind},#{staffTel},
+        #{staffEntryTime},#{staffAddress},#{staffState});
+    </insert>
+<!--    3.删除员工信息-->
+    <delete id="delStaffById" parameterType="int">
+        delete from enterpriseinfo.staff where staffId=#{staffId};
+    </delete>
+<!--    4.根据id查询员工信息-->
+    <select id="queryStaffById" resultType="Staff">
+        select * from enterpriseinfo.staff where staffId=#{staffId};
+    </select>
+<!--    5.修改员工信息-->
+    <update id="updateStaffInfo" parameterType="Staff">
+        update enterpriseinfo.staff
+        set staffUsername=#{staffUsername},staffPassword=#{staffPassword},
+        staffNumber=#{staffNumber},staffName=#{staffName},staffSex=#{staffSex},
+        staffBrithday=#{staffBrithday},staffAge=#{staffAge},staffKind=#{staffKind},
+        staffTel=#{staffTel},staffEntryTime=#{staffEntryTime},staffAddress=#{staffAddress},
+        staffState=#{staffState} where staffId=#{staffId} ;
+    </update>
+<!--    6.姓名模糊查询-->
+    <select id="queryStaffByName" parameterType="String" resultType="Staff">
+        select * from enterpriseinfo.staff where staffName like CONCAT('%',#{staffName},'%');
+    </select>
+<!--    7.根据工号查询员工-->
+    <select id="queryStaffByNumber" resultType="Staff">
+        select * from staff where staffNumber=#{staffNumber};
+    </select>
+<!--    8.分类查询员工信息-->
+    <select id="queryAllStaffByKind" resultType="Staff">
+        select * from staff order by staffState;
+    </select>
+<!--    9.-->
+    <select id="queryTest" resultMap="staffTask">
+        select s.staffName sname,s.staffSex ssex,t.taskTitle ttitle from staff s,task t where s.staffTaskId=t.taskId;
+    </select>
+    <resultMap id="staffTask" type="staff">
+        <result property="staffName" column="sname"/>
+        <result property="staffSex" column="ssex"/>
+        <association property="task" javaType="Task">
+            <result property="taskTitle" column="ttitle"/>
+        </association>
+    </resultMap>
+<!--    10.选择员工后更新员工任务-->
+    <update id="updateStaffInfoAfterChoice" parameterType="map">
+        update staff set staffTaskId = #{staffTaskId},staffTaskTitle=#{staffTaskTitle},staffState=1 where staffId=#{staffId} ;
+    </update>
+<!--    11.获得员工数目-->
+    <select id="getStaffCount" resultType="int">
+        select count(1) from staff;
+    </select>
+<!--    12.获得分页员工数据-->
+    <select id="getStaffInfo" resultType="Staff" parameterType="map">
+        select * from staff limit #{startIndex},#{pageSize};
+    </select>
+</mapper>
